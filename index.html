@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Therapist Efficacy Scale | Rapport</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#20334d;background:#f2f5fb}*{box-sizing:border-box}body{margin:0}main{max-width:850px;margin:30px auto;padding:0 16px 50px}.hero{background:linear-gradient(120deg,#263b79,#6745a5 65%,#188b98);color:white;padding:35px;border-radius:20px}.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.8rem;font-weight:700;color:#c5f0f3}h1{font-size:clamp(1.7rem,4vw,2.6rem);margin:8px 0}.hero p{line-height:1.6}.panel{background:white;padding:26px;border-radius:18px;margin-top:18px;box-shadow:0 6px 22px #24365b12}.intro{line-height:1.7}.progress-head{display:flex;justify-content:space-between;gap:10px;font-weight:700}.track{height:12px;background:#e5e9f2;border-radius:99px;overflow:hidden;margin:12px 0 5px}.fill{height:100%;width:0;background:linear-gradient(90deg,#6b49b4,#18a3a6);transition:width .2s}.scale{font-size:.92rem;color:#52647d}.question{border:1px solid #e1e6f0;border-radius:14px;padding:18px;margin:15px 0}.question:nth-child(even){background:#f8f7fe}.question legend{font-weight:650;line-height:1.5;padding:0 5px}.choices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:13px}.option{cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;text-align:center;padding:12px 4px;border:1px solid #cdd6e4;border-radius:11px;font-size:.77rem;min-height:76px}.option:has(input:checked){border:2px solid #6745a5;background:#ece5fb;color:#362065;font-weight:700}.option input{accent-color:#6745a5;width:18px;height:18px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}button{border:0;border-radius:11px;padding:14px 21px;font-weight:700;cursor:pointer;font-size:1rem}.primary{background:#493c94;color:white}.secondary{background:#e8edf5;color:#24385b}.primary:hover{background:#332874}button:focus-visible,input:focus-visible{outline:3px solid #169ba3;outline-offset:3px}.notice{color:#a23742;font-weight:650;min-height:1.4em}.hidden{display:none}.score{font-size:3.1rem;color:#493c94;font-weight:800;margin:8px 0}.muted{color:#54667c}.footer{text-align:center;color:#617086;font-size:.86rem;margin-top:22px}ul{line-height:1.7}@media(max-width:600px){.choices{grid-template-columns:1fr}.option{min-height:0;flex-direction:row;justify-content:flex-start;padding:10px 14px;text-align:left}.panel{padding:17px}.hero{padding:25px}}@media print{body{background:white}.hero{background:#263b79!important;print-color-adjust:exact}.actions,.footer{display:none}.panel{box-shadow:none}}
+</style>
+</head>
+<body><main>
+<header class="hero"><div class="eyebrow">Client Experience Survey</div><h1>Therapist Efficacy Scale</h1><h2>Rapport Subscale</h2><p>Explore how clients experience comfort, trust, respect, and connection in the therapeutic relationship.</p></header>
+<section class="panel intro"><h2>About this questionnaire</h2><p>Rapport is an important part of the therapeutic relationship. Drawing on person-centered ideas associated with Carl Rogers, these statements focus on how comfortable, accepted, heard, and respected a client feels with their therapist.</p><p><strong>Instructions:</strong> Think about your experience with your therapist throughout treatment. Select one response for each statement, from <strong>1 (Strongly disagree)</strong> to <strong>5 (Strongly agree)</strong>.</p><p class="muted"><strong>Privacy:</strong> This is a classroom demonstration. Your answers stay in this browser page and are not sent to a server or saved to local storage. Closing or refreshing the page clears them.</p></section>
+<section class="panel" id="survey"><div class="progress-head"><span>Questionnaire progress</span><span id="progressText" aria-live="polite">0 of 10 answered</span></div><div class="track" role="progressbar" aria-label="Questionnaire completion" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="progress"><div class="fill" id="fill"></div></div><p class="scale">1 = Strongly disagree · 2 = Disagree · 3 = Neither agree nor disagree · 4 = Agree · 5 = Strongly agree</p>
+<form id="form" novalidate><div id="questions"></div><p class="notice" id="notice" role="alert"></p><div class="actions"><button type="submit" class="primary">View my results</button><button type="button" class="secondary" id="clear">Clear answers</button></div></form></section>
+<section class="panel hidden" id="results" tabindex="-1" aria-live="polite"><h2>Your rapport responses</h2><div class="score" id="score"></div><p id="average"></p><p id="interpretation"></p><h3>Response summary</h3><div id="summary"></div><div class="actions"><button type="button" class="primary" id="back">Review answers</button><button type="button" class="secondary" id="restart">Start over</button><button type="button" class="secondary" onclick="window.print()">Print results</button></div><p class="muted">This score is a descriptive total for a classroom exercise, not a validated clinical assessment. No diagnostic conclusions or therapist performance ratings should be drawn from it.</p></section>
+<p class="footer">Westfield State University · Social Work Research Classroom Exercise · No response data collected</p>
+</main>
+<script>
+"use strict";
+const items=[
+"I felt comfortable sharing my thoughts and feelings with my therapist.",
+"My therapist listened carefully when I spoke during our sessions.",
+"I felt accepted by my therapist without being judged.",
+"I felt a sense of connection with my therapist.",
+"I felt that my therapist understood what I was trying to communicate.",
+"My therapist treated me with respect during our sessions.",
+"My therapist created a welcoming environment where I felt comfortable.",
+"I felt that my therapist genuinely cared about me as a person.",
+"I felt comfortable discussing difficult or sensitive topics with my therapist.",
+"My therapist gave me their full attention during our sessions."
+];
+const labels=["Strongly disagree","Disagree","Neither agree nor disagree","Agree","Strongly agree"];
+const container=document.getElementById("questions");
+items.forEach((item,i)=>{
+ const fieldset=document.createElement("fieldset");fieldset.className="question";
+ const legend=document.createElement("legend");legend.textContent=`${i+1}. ${item}`;fieldset.appendChild(legend);
+ const choices=document.createElement("div");choices.className="choices";
+ labels.forEach((label,j)=>{
+  const option=document.createElement("label");option.className="option";
+  const input=document.createElement("input");input.type="radio";input.name=`q${i}`;input.value=String(j+1);input.setAttribute("aria-label",`${j+1}: ${label}`);
+  const span=document.createElement("span");span.textContent=`${j+1} · ${label}`;option.append(input,span);choices.appendChild(option);
+ });fieldset.appendChild(choices);container.appendChild(fieldset);
+});
+const form=document.getElementById("form"),survey=document.getElementById("survey"),results=document.getElementById("results");
+function values(){return items.map((_,i)=>{const el=form.querySelector(`input[name="q${i}"]:checked`);return el?Number(el.value):null;});}
+function update(){const n=values().filter(v=>v!==null).length;document.getElementById("progressText").textContent=`${n} of 10 answered`;document.getElementById("fill").style.width=`${n*10}%`;document.getElementById("progress").setAttribute("aria-valuenow",String(n));document.getElementById("notice").textContent="";}
+form.addEventListener("change",update);
+form.addEventListener("submit",e=>{
+ e.preventDefault();const v=values(),missing=v.findIndex(x=>x===null);
+ if(missing!==-1){document.getElementById("notice").textContent=`Please answer question ${missing+1} before viewing results.`;form.querySelector(`input[name="q${missing}"]`).focus();return;}
+ const total=v.reduce((a,b)=>a+b,0),avg=(total/10).toFixed(1);
+ document.getElementById("score").textContent=`${total} / 50`;
+ document.getElementById("average").textContent=`Average response: ${avg} out of 5`;
+ document.getElementById("interpretation").textContent="Higher totals indicate stronger agreement with the positively worded rapport statements. This is a descriptive summary only; no validated cutoff or clinical interpretation has been established.";
+ const summary=document.getElementById("summary");summary.replaceChildren();
+ v.forEach((answer,i)=>{const p=document.createElement("p");p.textContent=`${i+1}. ${items[i]} — ${answer} (${labels[answer-1]})`;summary.appendChild(p);});
+ survey.classList.add("hidden");results.classList.remove("hidden");results.focus();results.scrollIntoView({behavior:"smooth",block:"start"});
+});
+function reset(){form.reset();results.classList.add("hidden");survey.classList.remove("hidden");update();survey.scrollIntoView({behavior:"smooth"});}
+document.getElementById("clear").addEventListener("click",reset);
+document.getElementById("restart").addEventListener("click",reset);
+document.getElementById("back").addEventListener("click",()=>{results.classList.add("hidden");survey.classList.remove("hidden");survey.scrollIntoView({behavior:"smooth"});});
+update();
+</script></body></html>
